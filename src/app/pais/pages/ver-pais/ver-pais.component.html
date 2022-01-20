@@ -1,0 +1,18 @@
+<div *ngIf="!pais; else divPais" class="alert alert-info">
+    Espere por favor...
+</div>
+
+<ng-template #divPais>
+    <div class="row">
+        <div class="col-12">
+            <h1>País: <small>{{ pais.name.common }}</small></h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <h3>Bandera</h3>
+            <img [src]="pais.flags.svg" alt="bandera" style="width: 200px;">
+        </div>
+    </div>
+</ng-template>
