@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, switchMap, tap } from 'rxjs';
-import { Country } from '../../interfaces/pais.interface';
+import { Badge, Country, Translation } from '../../interfaces/pais.interface';
 import { PaisService } from '../../services/pais.service';
 
 @Component({
@@ -12,6 +12,7 @@ import { PaisService } from '../../services/pais.service';
 export class VerPaisComponent implements OnInit, OnDestroy {
   private suscription: Subscription = new Subscription();
   public pais!: Country;
+  public badges: Badge[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -27,6 +28,9 @@ export class VerPaisComponent implements OnInit, OnDestroy {
         )
         .subscribe((pais) => {
           this.pais = pais[0];
+          this.badges = Object.values(this.pais.translations);
+          console.log(this.badges);
+          
         })
     );
   }

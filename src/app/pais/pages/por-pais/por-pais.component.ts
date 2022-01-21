@@ -10,6 +10,8 @@ export class PorPaisComponent implements OnInit {
   public termino: string = '';
   public hayError: boolean = true;
   public paises: Country[] = [];
+  public paisesSugerencias: Country[] = [];
+
 
   constructor(
     private paisService: PaisService,
@@ -22,24 +24,29 @@ export class PorPaisComponent implements OnInit {
   }
 
   buscar( termino: string ) {
-    this.termino = termino;
     this.paisService.buscarPais(this.termino).subscribe({
       next: (paises) => {
         this.hayError = false;
-        console.log(paises);
         this.paises = paises;
         this.ref.detectChanges();
       },
       error: (err) => {
         this.hayError = true;
         this.paises = [];
-        console.log(err);
         this.ref.detectChanges();
       },
     });
+    this.paisesSugerencias = [];
   }
 
   sugerencias( termino: string ){
-    this.hayError = false;
+    this.paisService.buscarPais(termino).subscribe({
+      next: (paises) => {
+        this.paisesSugerencias = paises.splice(0,3);
+      },
+      error: (err) => {
+        this.paisesSugerencias = [];
+      },
+    });
   }
 }

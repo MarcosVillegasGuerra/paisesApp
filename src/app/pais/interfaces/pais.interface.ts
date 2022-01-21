@@ -102,3 +102,8 @@ export interface PostalCode {
     format: string;
     regex:  string;
 }
+
+export interface Badge {
+    official: string;
+    common: string;
+}
